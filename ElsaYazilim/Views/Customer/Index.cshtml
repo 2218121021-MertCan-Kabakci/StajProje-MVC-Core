@@ -1,0 +1,239 @@
+﻿
+<html lang="en">
+
+<!--begin::Body-->
+<body id="kt_app_body" data-kt-app-layout="dark-sidebar" data-kt-app-header-fixed="true" data-kt-app-sidebar-enabled="true" data-kt-app-sidebar-fixed="true" data-kt-app-sidebar-hoverable="true" data-kt-app-sidebar-push-header="true" data-kt-app-sidebar-push-toolbar="true" data-kt-app-sidebar-push-footer="true" data-kt-app-toolbar-enabled="true" class="app-default">
+    <!--begin::Theme mode setup on page load-->
+   
+    <!--end::Theme mode setup on page load-->
+    <!--Begin::Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5FS8GGP" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!--End::Google Tag Manager (noscript) -->
+    <!--begin::Login sessions-->
+    <div class="card mb-5 mb-lg-10">
+        <!--begin::Card header-->
+        <div class="card-header">
+            <!--begin::Toolbar-->
+            <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
+                <div class="my-1 me-4">
+                    <!--begin::Select-->
+                    <select class="form-select form-select-sm form-select-solid w-125px" data-control="select2" data-placeholder="Select Hours" data-hide-search="true">
+                        <option value="1" selected="">1 Hours</option>
+                        <option value="2">6 Hours</option>
+                        <option value="3">12 Hours</option>
+                        <option value="4">24 Hours</option>
+                    </select>
+                    <!--end::Select-->
+                </div>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_1">
+                    Add Customer
+                </button>
+                <div class="modal fade" tabindex="-1" id="kt_modal_1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3 class="modal-title">Modal title</h3>
+
+                                <!--begin::Close-->
+                                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                                    <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
+                                </div>
+                                <!--end::Close-->
+                            </div>
+
+                            <div class="modal-body">
+
+
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Name:</label>
+                                    <input type="text" class="form-control" id="Name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">TaxNo:</label>
+                                    <input type="text" class="form-control" id="TaxNo">
+                                </div>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">TaxAdministration:</label>
+                                    <input type="text" class="form-control" id="TaxAdministration">
+                                </div>
+
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" onclick="AddCustomer()">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!--end::Toolbar-->
+        </div>
+        <!--end::Card header-->
+        <!--begin::Card body-->
+        <div class="card-body p-0">
+            <!--begin::Table wrapper-->
+            <div class="table-responsive">
+                <!--begin::Table-->
+                <table class="table align-middle table-row-bordered table-row-solid gy-4 gs-9">
+                    <!--begin::Thead-->
+                    <thead class="border-gray-200 fs-5 fw-semibold bg-lighten">
+                        <tr>
+                            
+                            <th class="min-w-100px">Name </th>
+                            <th class="min-w-150px">TaxNo </th>
+                            <th class="min-w-150px">TaxAdministration </th>
+                            
+                        </tr>
+                    </thead>
+                    
+                    <!--end::Thead-->
+                    <!--begin::Tbody-->
+                    <tbody id="dataBody" class="fw-6 fw-semibold text-gray-600">
+                    
+                        
+
+                    </tbody>
+                    <!--end::Tbody-->
+                </table>
+                <!--end::Table-->
+            </div>
+            <!--end::Table wrapper-->
+        </div>
+        <!--end::Card body-->
+    </div>
+    <!--end::Login sessions-->
+    
+</body>
+<!--end::Body-->
+</html>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="~/assets/plugins/global/plugins.bundle.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#dataBody").load("/Customer/GetCustomerInfo");
+    });
+</script>
+
+<script>
+    function closeModal() {
+        // Programmatically trigger the close button's click event
+        $('#kt_modal_1').find('button[data-bs-dismiss="modal"]').trigger('click');
+    }
+
+    function AddCustomer() {
+        var customer = {
+            Name: $('#Name').val(),
+            TaxNo: $('#TaxNo').val(),
+            TaxAdministration: $('#TaxAdministration').val(),
+        };
+
+        Swal.fire({
+            title: 'Onaylıyor musunuz?',
+            text: "Bu kisiyi kaydetmek istediğinizden emin misiniz?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Evet, kaydet!',
+            cancelButtonText: 'Hayır, iptal et!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                $.ajax({
+                    url: '/Customer/AddCustomer',
+                    type: 'POST',
+                    data: customer,
+                    success: function (response) {
+                        if (response.success) {
+                            Swal.fire(
+                                'Kaydedildi!',
+                                'Ürün başarıyla kaydedildi.',
+                                'success'
+                            ).then(() => {
+                                $("#dataBody").load("/Customer/GetCustomerInfo");
+
+                                closeModal();
+                                
+
+                                $('#Name').val('');
+                                $('#TaxNo').val('');
+                                $('#TaxAdministration').val('');
+                            });
+                        }
+                        else {
+                            Swal.fire(
+                                'Hata!',
+                                'Bir hata oluştu: ' + response.error,
+                                'error'
+                            );
+                        }
+                    },
+
+                });
+            }
+        });
+    }
+
+    function DeleteCustomer(Id) {
+        Swal.fire({
+            title: 'Silmek istediğinize emin misiniz?',
+            text: "Bu işlem geri alınamaz!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Evet, sil!',
+            cancelButtonText: 'Hayır, iptal et!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: `/Customer/DeleteCustomer?Id=${Id}`,
+                    type: 'GET',
+                    success: function (response) {
+                        Swal.fire(
+                            'Silindi!',
+                            'Ürün başarıyla silindi.',
+                            'success'
+                        ).then(() => {
+                            $("#dataBody").load("/Customer/GetCustomerInfo");
+
+                            
+                        });
+                    },
+                    error: function (xhr) {
+                        Swal.fire(
+                            'Hata!',
+                            'Bir hata oluştu: ',
+                            'error'
+                        );
+                    }
+                });
+            }
+        });
+    }
+
+</script>
+
+@* <script>
+    function AddCustomer() {
+        var Name = $("#TaxNo").val();
+        var TaxNo = $("#TaxNo").val();
+        var TaxAdministration = $("#TaxAdministration").val();
+
+        $.ajax({
+            url: '/Customer/AddCustomer',
+            type: 'POST',
+            data: {
+                Name: Name,
+                TaxNo: TaxNo,
+                TaxAdministration: TaxAdministration
+            },
+            success: function (response) {
+                if (response.success) {
+                    alert(response.message);
+                } else {
+                    alert(response.message);
+                }
+            },
+        });
+    }
+</script> *@

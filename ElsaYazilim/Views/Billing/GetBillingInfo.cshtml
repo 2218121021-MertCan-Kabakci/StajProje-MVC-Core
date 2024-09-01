@@ -1,0 +1,26 @@
+﻿@model List<Entities.Billing>
+
+@{
+    Layout = null;
+}
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @item.Id
+        </td>
+        <td>
+            @item.No
+        </td>
+
+        <td>
+            @item.BillingDate
+        </td>
+        <td>
+            @item.Account
+        </td>
+        <td>
+            @item.Status
+        </td>
+    </tr>
+}

@@ -1,0 +1,104 @@
+﻿
+<div class="container mt-4 position-relative">
+
+	<button type="button" class="btn btn-primary btn-small position-absolute top-0" style="right: 16px; transform: translateY(-50%);" data-bs-toggle="modal" data-bs-target="#kt_modal_1">
+		Yeni Kayıt
+	</button>
+
+
+	<div class="table-responsive mt-8">
+		<table class="table table-hover table-rounded table-striped border gy-7 gs-7">
+			<thead>
+				<tr class="fw-semibold fs-6 text-gray-800 border-bottom-2 border-gray-200">
+					<th>Name</th>
+					<th>Position</th>
+					<th>Office</th>
+					<th>Age</th>
+					<th>Start date</th>
+					<th>Salary</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Tiger Nixon</td>
+					<td>System Architect</td>
+					<td>Edinburgh</td>
+					<td>61</td>
+					<td>2011/04/25</td>
+					<td>$320,800</td>
+				</tr>
+				<tr>
+					<td>Garrett Winters</td>
+					<td>Accountant</td>
+					<td>Tokyo</td>
+					<td>63</td>
+					<td>2011/07/25</td>
+					<td>$170,750</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+
+<!-- HTML code -->
+<div class="modal fade" tabindex="-1" id="kt_modal_1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Yeni Kayıt Ekranı</h3>
+
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
+                </div>
+            </div>
+
+            <div class="modal-body">
+                <form id="registrationForm">
+                    <div class="mb-3">
+                        <label for="firstName" class="form-label">İsim</label>
+                        <input type="text" class="form-control" id="firstName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="lastName" class="form-label">Soyisim</label>
+                        <input type="text" class="form-control" id="lastName" required>
+                    </div>
+                    <div class="mb-0">
+                        <label for="" class="form-label">Email Address</label>
+                        <input class="form-control form-control-solid" id="kt_inputmask_8" inputmode="text">
+                       
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Şifre</label>
+                        <input type="password" class="form-control" id="password" required>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Kapat</button>
+                <button type="button" class="btn btn-primary" onclick="submitForm()">Kaydet</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+Inputmask({
+    mask: "*{1,20}[.*{1,20}][.*{1,20}][.*{1,20}]*{1,20}[.*{2,6}][.*{1,2}]",
+    greedy: false,
+    onBeforePaste: function (pastedValue, opts) {
+        pastedValue = pastedValue.toLowerCase();
+        return pastedValue.replace("mailto:", "");
+    },
+    definitions: {
+        "*": {
+            validator: '[0-9A-Za-z!#$%&"*+/=?^_`{|}~\-]',
+            cardinality: 1,
+            casing: "lower"
+        }
+    }
+}).mask("#kt_inputmask_8");
+</script>

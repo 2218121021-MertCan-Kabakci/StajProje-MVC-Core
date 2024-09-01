@@ -1,0 +1,128 @@
+﻿@model List<Entities.Billing>
+<!DOCTYPE html>
+
+<html lang="en">
+
+<body>
+
+    <div class="card" style="padding-left: 20px; padding-right: 20px;">
+        <div class="card-header">
+            <h3 class="card-title">
+                Fatura Ekranı
+            </h3>
+            <button class="btn btn-light btn-sm">
+                <i class="ki-filled ki-exit-down">
+                </i>
+                Download All
+            </button>
+        </div>
+        <div class="card-table scrollable-x-auto">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="min-w-52">
+                            Fatura No
+                        </th>
+                        <th class="min-w-24 text-right">
+                            Müşteri Firma
+                        </th>
+                        <th class="min-w-32 text-right">
+                            Tarih
+                        </th>
+                        <th class="min-w-20 text-right">
+                            Fatura Açıklaması
+                        </th>
+                        <th class="w-8">
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="text-sm font-medium text-gray-700">
+                                Invoice-2024-xd912c
+                            </td>
+                            <td class="lg:text-right">
+                                <div class="badge badge-sm badge-warning badge-outline">
+                                    Upcoming
+                                </div>
+                            </td>
+                            <td class="text-sm font-medium text-gray-700 lg:text-right">
+                                @item.BillingDate
+                            </td>
+                            <td class="text-sm text-gray-700 font-medium lg:text-right">
+                                @item.Account
+                            </td>
+                            <td>
+                                <div class="btn btn-sm btn-icon btn-clear btn-primary">
+                                    <i class="ki-filled ki-exit-down">
+                                    </i>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer justify-center">
+            <a class="btn btn-link" href="#">
+                View all Payments
+            </a>
+        </div>
+        <div class="card" style="padding-left: 90px; padding-right: 90px;">
+            <div class="card-header">
+                <h3 class="card-title">
+                    Fatura Detay
+                </h3>
+                <button class="btn btn-light btn-sm">
+                    <i class="ki-filled ki-notepad-edit">
+                    </i>
+                    Faturalandırmayı Düzenle
+                </button>
+            </div>
+            <div class="card-body pt-4 pb-2">
+                <table class="table-auto">
+                    <tbody>
+                        <tr>
+                            <td class="text-sm font-medium text-gray-500 min-w-36 pb-5 pe-6">
+                                Firma Adı
+                            </td>
+                            <td class="text-sm font-medium text-gray-700 pb-5">
+                                KeenThemes
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-sm font-medium text-gray-500 min-w-36 pb-5 pe-6">
+                                Adres
+                            </td>
+                            <td class="text-sm font-medium text-gray-700 pb-5">
+                                Keizersgracht 136, 1015 CW Amsterdam, Netherlands
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-sm font-medium text-gray-500 min-w-36 pb-5 pe-6">
+                                Ödeme Tipi
+                            </td>
+                            <td class="text-sm font-medium text-gray-700 pb-5">
+                                Jason Tatum
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-sm font-medium text-gray-500 min-w-36 pb-5 pe-6">
+                                KDV Numarası
+                            </td>
+                            <td class="text-sm font-medium text-gray-700 pb-5">
+                                NL123456789B01
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+
+</body>
+
+</html>

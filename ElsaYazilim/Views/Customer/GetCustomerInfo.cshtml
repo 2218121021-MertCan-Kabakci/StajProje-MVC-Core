@@ -1,0 +1,31 @@
+﻿@model List<Entities.Customer>
+
+@{
+    Layout = null;
+}
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            <a href="#" class="text-hover-primary text-gray-600">@item.Name</a>
+        </td>
+
+        <td>
+            <span class="badge badge-light-success fs-7 fw-bold">@item.TaxNo</span>
+        </td>
+
+        <td>@item.TaxAdministration</td>
+
+        <td>
+            <button onclick="DeleteCustomer(@item.Id)"> 
+                Delete
+            </button>
+        </td>
+        
+
+        
+    </tr>
+}
+
+
+

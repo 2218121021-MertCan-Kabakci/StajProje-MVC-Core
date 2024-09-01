@@ -1,0 +1,29 @@
+﻿@model List<Entities.Contact>
+
+@{
+    Layout = null;
+}
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @item.Adress
+        </td>
+        <td>
+            @item.FirstPhone
+        </td>
+        <td>
+            @item.Email
+        </td>
+        <td>
+            @item.SecondPhone
+        </td>
+        <td>
+            @item.HomePhone
+        </td>
+        <td>
+            @item.OfficePhone
+        </td>
+    </tr>
+}
